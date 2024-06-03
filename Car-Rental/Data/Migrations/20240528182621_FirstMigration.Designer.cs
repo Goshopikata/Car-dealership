@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRentingSystem.Migrations
 {
-    [DbContext(typeof(CarRentingDbContext))]
+    [DbContext(typeof(RentalDbContext))]
     [Migration("20240528182621_FirstMigration")]
     partial class FirstMigration
     {
