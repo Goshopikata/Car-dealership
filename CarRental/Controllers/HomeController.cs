@@ -1,8 +1,8 @@
-﻿using Car_Rental.Models;
+﻿using CarRental.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Car_Rental.Controllers
+namespace CarRental.Controllers
 {
     public class HomeController : Controller
     {
