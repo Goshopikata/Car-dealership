@@ -1,4 +1,4 @@
-﻿namespace Car_Rental.Data
+﻿namespace CarRental.Data
 {
     public class DataConstants
     {

@@ -1,7 +1,7 @@
-using Car_Rental.Data;
+using CarRental.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static Car_Rental.Data.DataConstants;
+using static CarRental.Data.DataConstants;
 
 namespace CarRental
 {

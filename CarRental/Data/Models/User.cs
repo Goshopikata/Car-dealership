@@ -1,4 +1,4 @@
-﻿namespace Car_Rental.Data.Models
+﻿namespace CarRental.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Identity;

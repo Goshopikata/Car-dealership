@@ -1,6 +1,6 @@
-﻿namespace Car_Rental.Data
+﻿namespace CarRental.Data
 {
-    using Car_Rental.Data.Models;
+    using CarRental.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
