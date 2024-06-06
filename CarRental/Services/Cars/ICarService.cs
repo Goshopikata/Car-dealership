@@ -1,15 +1,15 @@
-﻿namespace CarRentingSystem.Services.Cars
+﻿namespace CarRental.Services.Cars
 {
     using System.Collections.Generic;
+    using CarRental.Services.Cars.Models;
     using CarRentingSystem.Models;
-    using CarRentingSystem.Services.Cars.Models;
 
     public interface ICarService
     {
         CarQueryServiceModel All(
             string brand = null,
             string searchTerm = null,
-            CarSorting sorting = CarSorting.DateCreated, 
+            CarSorting sorting = CarSorting.DateCreated,
             int currentPage = 1,
             int carsPerPage = int.MaxValue,
             bool publicOnly = true);
