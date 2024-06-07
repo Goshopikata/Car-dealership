@@ -6,6 +6,10 @@
 
     public class RentalDbContext : IdentityDbContext<User>
     {
+       public RentalDbContext ()
+        {
+
+        }
         public RentalDbContext(DbContextOptions<RentalDbContext> options)
             : base(options)
         {
@@ -16,6 +20,12 @@
         public DbSet<Category> Categories { get; init; }
 
         public DbSet<Dealer> Dealers { get; init; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=CarRentalChepBate;Trusted_Connection=True;MultipleActiveResultSets=true");
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

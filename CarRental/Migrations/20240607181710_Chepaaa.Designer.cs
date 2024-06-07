@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CarRentingSystem.Migrations
+#nullable disable
+
+namespace CarRental.Migrations
 {
     [DbContext(typeof(RentalDbContext))]
-    [Migration("20240528182621_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240607181710_Chepaaa")]
+    partial class Chepaaa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.29")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Car", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CarRental.Data.Models.Car", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -67,12 +71,13 @@ namespace CarRentingSystem.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Category", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -84,12 +89,13 @@ namespace CarRentingSystem.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Dealer", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Dealer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -113,7 +119,7 @@ namespace CarRentingSystem.Migrations
                     b.ToTable("Dealers");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.User", b =>
+            modelBuilder.Entity("CarRental.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -133,6 +139,7 @@ namespace CarRentingSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -179,7 +186,7 @@ namespace CarRentingSystem.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -206,15 +213,16 @@ namespace CarRentingSystem.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -230,15 +238,16 @@ namespace CarRentingSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -254,18 +263,16 @@ namespace CarRentingSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -278,7 +285,7 @@ namespace CarRentingSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -293,7 +300,7 @@ namespace CarRentingSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -302,30 +309,28 @@ namespace CarRentingSystem.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Car", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Car", b =>
                 {
-                    b.HasOne("CarRentingSystem.Data.Models.Category", "Category")
+                    b.HasOne("CarRental.Data.Models.Category", "Category")
                         .WithMany("Cars")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CarRentingSystem.Data.Models.Dealer", "Dealer")
+                    b.HasOne("CarRental.Data.Models.Dealer", "Dealer")
                         .WithMany("Cars")
                         .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -336,11 +341,11 @@ namespace CarRentingSystem.Migrations
                     b.Navigation("Dealer");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Dealer", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Dealer", b =>
                 {
-                    b.HasOne("CarRentingSystem.Data.Models.User", null)
+                    b.HasOne("CarRental.Data.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("CarRentingSystem.Data.Models.Dealer", "UserId")
+                        .HasForeignKey("CarRental.Data.Models.Dealer", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -356,7 +361,7 @@ namespace CarRentingSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CarRentingSystem.Data.Models.User", null)
+                    b.HasOne("CarRental.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -365,7 +370,7 @@ namespace CarRentingSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CarRentingSystem.Data.Models.User", null)
+                    b.HasOne("CarRental.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -380,7 +385,7 @@ namespace CarRentingSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRentingSystem.Data.Models.User", null)
+                    b.HasOne("CarRental.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -389,19 +394,19 @@ namespace CarRentingSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CarRentingSystem.Data.Models.User", null)
+                    b.HasOne("CarRental.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Category", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Category", b =>
                 {
                     b.Navigation("Cars");
                 });
 
-            modelBuilder.Entity("CarRentingSystem.Data.Models.Dealer", b =>
+            modelBuilder.Entity("CarRental.Data.Models.Dealer", b =>
                 {
                     b.Navigation("Cars");
                 });

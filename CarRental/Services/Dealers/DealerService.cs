@@ -1,13 +1,14 @@
 ﻿namespace CarRental.Services.Dealers
 {
+    using CarRental.Data;
     using System.Linq;
-    using CarRentingSystem.Data;
+    
 
     public class DealerService : IDealerService
     {
-        private readonly CarRentingDbContext data;
+        private readonly RentalDbContext data;
 
-        public DealerService(CarRentingDbContext data)
+        public DealerService(RentalDbContext data)
             => this.data = data;
 
         public bool IsDealer(string userId)

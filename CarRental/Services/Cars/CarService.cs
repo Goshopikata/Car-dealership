@@ -7,7 +7,6 @@
     using CarRental.Data;
     using CarRental.Data.Models;
     using CarRental.Services.Cars.Models;
-    using CarRentingSystem.Models;
 
     public class CarService : ICarService
     {

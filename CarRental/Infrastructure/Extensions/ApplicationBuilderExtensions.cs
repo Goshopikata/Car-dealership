@@ -3,14 +3,13 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using CarRentingSystem.Data;
-    using CarRentingSystem.Data.Models;
+    using CarRental.Data;
+    using CarRental.Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-
-    using static CarRentingSystem.Areas.Admin.AdminConstants;
+    using static CarRental.Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtensions
     {
@@ -30,14 +29,14 @@
 
         private static void MigrateDatabase(IServiceProvider services)
         {
-            var data = services.GetRequiredService<CarRentingDbContext>();
+            var data = services.GetRequiredService<RentalDbContext>();
 
             data.Database.Migrate();
         }
 
         private static void SeedCategories(IServiceProvider services)
         {
-            var data = services.GetRequiredService<CarRentingDbContext>();
+            var data = services.GetRequiredService<RentalDbContext>();
 
             if (data.Categories.Any())
             {

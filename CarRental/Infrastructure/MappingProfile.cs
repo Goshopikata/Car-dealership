@@ -1,9 +1,9 @@
 ﻿namespace CarRental.Infrastructure
 {
     using AutoMapper;
+    using CarRental.Data.Models;
     using CarRental.Services.Cars.Models;
-    using CarRentingSystem.Data.Models;
-    using CarRentingSystem.Models.Cars;
+    
 
     public class MappingProfile : Profile
     {
