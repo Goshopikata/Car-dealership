@@ -20,6 +20,7 @@
         public DbSet<Category> Categories { get; init; }
 
         public DbSet<Dealer> Dealers { get; init; }
+        public override DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

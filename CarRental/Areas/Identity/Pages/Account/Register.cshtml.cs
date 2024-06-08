@@ -29,8 +29,6 @@
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public string ReturnUrl { get; set; }
-
         public class InputModel
         {
             [Required]
@@ -52,14 +50,13 @@
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public void OnGet()
         {
-            ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
+            string returnUrl = Url.Content("~/");
 
             if (ModelState.IsValid)
             {

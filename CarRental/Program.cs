@@ -14,15 +14,20 @@ namespace CarRental
             // Add services to the container.
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options =>
+            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                            throw new NullReferenceException("Connection string was null");
+
+            builder.Services.AddDbContext<RentalDbContext>(x => x.UseSqlServer(connectionString));
+
+            builder.Services.AddDefaultIdentity<CarRental.Data.Models.User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<RentalDbContext>();
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<RentalDbContext>();
 
             builder.Services.AddControllersWithViews();
 

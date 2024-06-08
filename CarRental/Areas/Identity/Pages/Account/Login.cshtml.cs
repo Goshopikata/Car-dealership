@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using static CarRental.Data.DataConstants;
+    using CarRental.Data.Models;
 
     [AllowAnonymous]
     public class LoginModel : PageModel
@@ -19,8 +19,6 @@
 
         [BindProperty]
         public InputModel Input { get; set; }
-
-        public string ReturnUrl { get; set; }
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -39,23 +37,19 @@
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync()
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/");
-
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
+            string returnUrl = Url.Content("~/");
 
             if (ModelState.IsValid)
             {
