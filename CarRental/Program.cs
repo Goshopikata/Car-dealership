@@ -1,4 +1,10 @@
+using AutoMapper;
+using CarRental.Controllers;
 using CarRental.Data;
+using CarRental.Infrastructure.Extensions;
+using CarRental.Services.Cars;
+using CarRental.Services.Dealers;
+using CarRental.Services.Statistics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static CarRental.Data.DataConstants;
@@ -11,13 +17,21 @@ namespace CarRental
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+           
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                             throw new NullReferenceException("Connection string was null");
 
             builder.Services.AddDbContext<RentalDbContext>(x => x.UseSqlServer(connectionString));
+
+            builder.Services.AddAutoMapper();
+
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddTransient<ICarService, CarService>();
+            builder.Services.AddTransient<IDealerService, DealerService>();
+            builder.Services.AddTransient<IStatisticsService, StatisticsService>();
 
             builder.Services.AddDefaultIdentity<CarRental.Data.Models.User>(options =>
             {
@@ -33,7 +47,9 @@ namespace CarRental
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            app.PrepareDatabase();
+
+           
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -41,23 +57,32 @@ namespace CarRental
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+               
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app
+                           .UseHttpsRedirection()
+                           .UseStaticFiles()
+                           .UseRouting()
+                           .UseAuthentication()
+                           .UseAuthorization()
+                           .UseEndpoints(endpoints =>
+                           {
+                               endpoints.MapDefaultAreaRoute();
 
-            app.UseRouting();
+                               endpoints.MapControllerRoute(
+                                   name: "Car Details",
+                                   pattern: "/Cars/Details/{id}/{information}",
+                                   defaults: new
+                                   {
+                                       controller = typeof(CarsController).GetControllerName(),
+                                       action = nameof(CarsController.Details)
+                                   });
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
-
+                               endpoints.MapDefaultControllerRoute();
+                               endpoints.MapRazorPages();
+                           });
             app.Run();
         }
     }
